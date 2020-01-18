@@ -1,5 +1,9 @@
-zabbix-proxy-sqlite3:
-  image: zabbix/zabbix-proxy-sqlite3:centos-4.4-latest
+ zabbix-proxy-sqlite3:
+  build:
+   context: ./proxy-sqlite3/centos
+   cache_from:
+    - centos:centos7
+  image: zabbix-proxy-sqlite3:centos-local
   ports:
    - "10061:10051"
   volumes:
@@ -31,39 +35,10 @@ zabbix-proxy-sqlite3:
    - .env_prx
    - .env_prx_sqlite3
   user: root
-  depends_on:
-   - zabbix-java-gateway
-   - zabbix-snmptraps
-  networks:
-   zbx_net_backend:
-    aliases:
-     - zabbix-proxy-sqlite3
-     - zabbix-proxy-centos-sqlite3
-     - zabbix-proxy-sqlite3-centos
-   zbx_net_frontend:
   stop_grace_period: 30s
-   labels:
-   com.zabbix.description: "Zabbix proxy"
-   com.zabbix.company: "Zabbix"
+  labels:
+   com.zabbix.description: "Zabbix proxy with SQLite3 database support"
+   com.zabbix.company: "Zabbix LLC"
    com.zabbix.component: "zabbix-proxy"
    com.zabbix.dbtype: "sqlite3"
    com.zabbix.os: "centos"
-
-   networks:
-  zbx_net_frontend:
-    driver: bridge
-    driver_opts:
-      com.docker.network.enable_ipv6: "false"
-    ipam:
-      driver: default
-      config:
-      - subnet: 172.16.238.0/24
-  zbx_net_backend:
-    driver: bridge
-    driver_opts:
-      com.docker.network.enable_ipv6: "false"
-    internal: true
-    ipam:
-      driver: default
-      config:
-      - subnet: 172.16.239.0/24
