@@ -62,7 +62,7 @@ services:
     - centos:centos7
   image: zabbix-proxy-sqlite3:centos-local
   ports:
-   - "10061:10051"
+   - "10062:10051"
   volumes:
    - /etc/localtime:/etc/localtime:ro
    - /etc/timezone:/etc/timezone:ro 
