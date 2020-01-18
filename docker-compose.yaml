@@ -35,9 +35,9 @@
    - .env_prx
    - .env_prx_sqlite3
   user: root
-  depends_on:
-   - zabbix-java-gateway
-   - zabbix-snmptraps
+#  depends_on:
+#   - zabbix-java-gateway
+#   - zabbix-snmptraps
   networks:
    zbx_net_backend:
     aliases:
